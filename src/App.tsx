@@ -1,24 +1,103 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { fetchQuestions } from './API'; 
 
-function App() {
+// Components
+import QuestionCard from './components/QuestionCard';
+// Types
+import { QuestionState, Difficulty } from './API'
+
+type UserAnswerObject = {
+  question: string;
+  userAnswer: string;
+  isCorrect: boolean;
+  correctAnswer: string;
+}
+
+const TOTAL_QUESTIONS = 10;
+
+const App = () => {
+  const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState<QuestionState[]>([]);
+  const [number, setNumber] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<UserAnswerObject[]>([]);
+  const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(true);
+
+  // TODO: Implement error-handling?
+  const startDevPrep = async () => {
+    setLoading(true);
+    setGameOver(false);
+
+    const fetchedQuestions = await fetchQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
+
+    setQuestions(fetchedQuestions);
+    setScore(0);
+    setUserAnswers([]);
+    setNumber(0);
+    setLoading(false);
+  }
+
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!gameOver) {
+      // Get user's answer
+      const userAnswer = e.currentTarget.value;
+      // Check answer against correct answer
+      const isCorrect = questions[number].correct_answer === userAnswer;
+      // Add one to score if answer is correct
+      if (isCorrect) {
+        setScore((prev) => prev + 1);
+      }
+      // Save answer in the array representing user answers
+      const userAnswerObject = { 
+        question: questions[number].question,
+        userAnswer: userAnswer,
+        isCorrect: isCorrect,
+        correctAnswer: questions[number].correct_answer,
+      };
+      setUserAnswers((prev) => [...prev, userAnswerObject]);
+    }
+  }
+
+  const nextQuestion = () => {
+    // Move on to the next question if not the last question
+    const nextQuestionIndex = number + 1;
+    if (nextQuestionIndex === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    }
+    else {
+      setNumber(nextQuestionIndex);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>quiz_me</h1> 
+      {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+        <button className="start" onClick={startDevPrep}>
+          Start
+        </button>
+      ) : null}
+      {!gameOver ? <p className="score">Score:</p> : null}
+      {loading && <p>Loading Questions...</p>} 
+      {!loading && !gameOver && ( 
+        <QuestionCard
+          questionNumber={number + 1 } // Start at question 1
+          totalQuestions={TOTAL_QUESTIONS}
+          question={questions[number].question}
+          answers={questions[number].answers} 
+          userAnswer={userAnswers ? userAnswers[number] : undefined} // Get answer corresponding to q
+          callback={checkAnswer}
+        /> 
+      )}
+      {/* Don't show 'Next Question' object unless user had provided at least one answer */}
+      {!gameOver && 
+      !loading && 
+      (userAnswers.length === number + 1) &&  
+      number !== TOTAL_QUESTIONS - 1 ? (
+        <button className="next" onClick={nextQuestion}>
+          Next Question
+        </button> 
+      ) : null}  
     </div>
   );
 }
