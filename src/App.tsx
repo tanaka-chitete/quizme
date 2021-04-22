@@ -77,11 +77,11 @@ const App = () => {
         <h1>quiz_me</h1> 
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
           <button className="start" onClick={startDevPrep}>
-            Start
+            start
           </button>
         ) : null}
-        {!gameOver ? <p className="score">{score}</p> : null}
-        {loading && <p>Loading Questions...</p>} 
+        {!gameOver && !loading ? <p className="score">{score}</p> : null}
+        {loading && <p>loading questions...</p>} 
         {!loading && !gameOver && ( 
           <QuestionCard
             questionNumber={number + 1 } // Start at question 1
@@ -98,9 +98,9 @@ const App = () => {
         (userAnswers.length === number + 1) &&  
         number !== TOTAL_QUESTIONS - 1 ? (
           <button className="next" onClick={nextQuestion}>
-            Next Question
+            next question
           </button> 
-        ) : null}  
+        ) : null}
       </Wrapper>
     </>
   );
