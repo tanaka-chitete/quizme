@@ -17,7 +17,8 @@ export type UserAnswerObject = {
 const TOTAL_QUESTIONS = 10;
 
 const App = () => {
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [number, setNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswerObject[]>([]);
@@ -26,6 +27,7 @@ const App = () => {
 
   // TODO: Implement error-handling?
   const startDevPrep = async () => {
+    setLoaded(false);
     setLoading(true);
     setGameOver(false);
 
@@ -36,6 +38,7 @@ const App = () => {
     setUserAnswers([]);
     setNumber(0);
     setLoading(false);
+    setLoaded(true);
   }
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,15 +77,20 @@ const App = () => {
     <>
       <GlobalStyle/>  
       <Wrapper>
-        <h1>quiz_me</h1> 
-        {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+        <h1>quiz<span>_</span>me</h1> 
+        {!loading && !loaded && (
+          <p>
+            Test your knowledge on a variety of fun and interesting topics such as Film and TV, 
+            Music, Pop Culture, History and Art!
+          </p>)}
+        {gameOver || userAnswers.length === TOTAL_QUESTIONS && !loading ? (
           <button className="start" onClick={startDevPrep}>
             start
           </button>
         ) : null}
-        {!gameOver && !loading ? <p className="score">{score}</p> : null}
+        {!gameOver && !loading && userAnswers.length !== TOTAL_QUESTIONS ? <p className="score">{score}</p> : null}
         {loading && <p>loading questions...</p>} 
-        {!loading && !gameOver && ( 
+        {!loading && !gameOver && userAnswers.length !== TOTAL_QUESTIONS && ( 
           <QuestionCard
             questionNumber={number + 1 } // Start at question 1
             totalQuestions={TOTAL_QUESTIONS}

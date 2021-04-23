@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import BGImage from './imgs/luke-chesser.jpg';
+import BGImage from './imgs/background.jpg';
 
 // You can call this whatever you want
 export const GlobalStyle = createGlobalStyle`
@@ -28,43 +28,43 @@ export const Wrapper = styled.div`
   align-items: center;
 
   > p {
-    color: #fff;
+    color: #e0e2ec;
+    font-weight: 200;
+    max-width: 1000px;
+    text-align: center;
   }
 
   .score {
-    color: #fff;
+    color: #545454;
     font-size: 2rem;
     margin: 0;
-    margin-bottom: 50px;
     font-family: 'Abel';
   }
 
   h1 {
-    font-family: 'Abel', 'Haettenschweiler', 'Arial Narrow Bold', 'sans-serif';
-    // background-image: linear-gradient(180deg, #fff, #87f1ff);
-    // background-size: 100%;
-    // background-clip: text;
-    // -webkit-background-clip: text;
-    // -webkit-text-fill-color: transparent;
-    // -moz-background-clip: text;
-    // -moz-text-fill-color: transparent;
-    // filter: drop-shadow(2px 2px #0085a3);
-    color: white;
-    font-size: 70px;
+    font-family: 'Abel';
+    color: #e0e2ec;
+    font-size: 50px;
     font-weight: 400;
     text-align: center;
-    // margin: 20px; 
+  }
+
+  h1 > span {
+    font-family: 'Abel';
+    color: #ff5c3e;
+    font-size: 50px;
+    font-weight: 400;
   }
 
   .start, .next {
     cursor: pointer;
-    background: linear-gradient(180deg, #fff, #ffcc91);
-    border: 2px solid #d38558;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    background: #ff5c3e;
+    border: 0;
+    border-radius: 20px;
     height: 40px;
     margin: 20px 0;
     padding: 0 40px;
+    color: #fff
   }
 
   .start {

@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  max-width: 1100px;
-  background: #ffcc91;
-  border-radius: 10px;
-  border: 2px solid #fff;
+  max-width: 1000px;
+  min-width: 500px;
+  border-radius: 25px;
   padding: 20px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
   text-align: center;
 
   p {
     font-size: 1rem;
+    color: #e0e2ec;
+  }
+
+  .number {
+    color: #ff5c3e;
   }
 `
 
@@ -35,14 +38,12 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
     margin: 5px 0;
     background: ${({ isCorrect, userClicked }) =>
       isCorrect
-        ? 'linear-gradient(90deg, #56ffa4, #59bc86)'
+        ? '#5cd89f'
         : !isCorrect && userClicked
-        ? 'linear-gradient(90deg, #ff5656, #c16868)'
-        : 'linear-gradient(90deg, #EA762D, #faad2d)'};
-    border: 3px solid #fff;
-    box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    color: #fff;
-    text-shadow: 0px, 1px, 0px, rgba(0, 0, 0, 0.25);
+        ? '#ff5851'
+        : '#e0e2ec'};
+    border: 0;
+    border-radius: 20px;
+    color: #1c1b20;
   }
 `;
