@@ -89,7 +89,7 @@ const App = () => {
             start
           </button>
         )}
-        {gameOver && !loading && (
+        {gameOver && !loading && userAnswers.length === TOTAL_QUESTIONS && (
           <>
             {score < 5 && (
               <p>
@@ -118,7 +118,7 @@ const App = () => {
               <p>
                 You scored {score} out of {TOTAL_QUESTIONS}. So close, yet so far.
               </p>)}
-            {score === 7 && (
+            {score === 10 && (
               <p>
                 You scored {score} out of {TOTAL_QUESTIONS}. Be honest, you cheated...didn't you?
               </p>)}
