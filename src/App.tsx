@@ -65,12 +65,13 @@ const App = () => {
   const nextQuestion = () => {
     // Move on to the next question if not the last question
     const nextQuestionIndex = number + 1;
-    if (nextQuestionIndex === TOTAL_QUESTIONS) {
-      setGameOver(true);
-    }
-    else {
+    if (nextQuestionIndex < TOTAL_QUESTIONS) {
       setNumber(nextQuestionIndex);
     }
+  }
+
+  const finishGame = () => {
+    setGameOver(true);
   }
 
   return (
@@ -83,14 +84,52 @@ const App = () => {
             Test your knowledge on a variety of fun and interesting topics such as Film and TV, 
             Music, Pop Culture, History and Art!
           </p>)}
-        {gameOver || userAnswers.length === TOTAL_QUESTIONS && !loading ? (
+        {gameOver && !loading && userAnswers.length !== TOTAL_QUESTIONS && (
           <button className="start" onClick={startDevPrep}>
             start
           </button>
-        ) : null}
-        {!gameOver && !loading && userAnswers.length !== TOTAL_QUESTIONS ? <p className="score">{score}</p> : null}
+        )}
+        {gameOver && !loading && (
+          <>
+            {score < 5 && (
+              <p>
+                You scored {score} out of {TOTAL_QUESTIONS}. Oh my...that's embarassing.
+              </p>)}
+            {score === 5 && (
+              <p>
+                You scored {score} out of {TOTAL_QUESTIONS}. Wow...you really are doing the bare 
+                minimum, huh?
+              </p>)}
+            {score === 6 && (
+              <p>
+                You scored {score} out of {TOTAL_QUESTIONS}. Hey, at least you gave it a shot.
+              </p>)}
+            {score === 7 && (
+              <p>
+                You scored {score} out of {TOTAL_QUESTIONS}. You're neither average nor 
+                high-achieving.
+              </p>)}
+            {score === 8 && (
+              <p>
+                You scored {score} out of {TOTAL_QUESTIONS}. Mhmmm...maybe you are worth my time
+                after all.
+              </p>)}
+            {score === 9 && (
+              <p>
+                You scored {score} out of {TOTAL_QUESTIONS}. So close, yet so far.
+              </p>)}
+            {score === 7 && (
+              <p>
+                You scored {score} out of {TOTAL_QUESTIONS}. Be honest, you cheated...didn't you?
+              </p>)}
+            <button className="start" onClick={startDevPrep}>
+              play again
+            </button>
+          </>
+        )}
+        {!gameOver && !loading && <p className="score">{score}</p>}
         {loading && <p>loading questions...</p>} 
-        {!loading && !gameOver && userAnswers.length !== TOTAL_QUESTIONS && ( 
+        {!loading && !gameOver && ( 
           <QuestionCard
             questionNumber={number + 1 } // Start at question 1
             totalQuestions={TOTAL_QUESTIONS}
@@ -103,12 +142,18 @@ const App = () => {
         {/* Don't show 'Next Question' object unless user had provided at least one answer */}
         {!gameOver && 
         !loading && 
-        (userAnswers.length === number + 1) &&  
-        number !== TOTAL_QUESTIONS - 1 ? (
+        (userAnswers.length === number + 1) && (number !== TOTAL_QUESTIONS - 1) && (
           <button className="next" onClick={nextQuestion}>
             next question
           </button> 
-        ) : null}
+        )}
+        {!gameOver && 
+        !loading && 
+        (userAnswers.length === number + 1) && (number === TOTAL_QUESTIONS - 1) && (
+          <button className="next" onClick={finishGame}>
+            finish
+          </button> 
+        )}
       </Wrapper>
     </>
   );
