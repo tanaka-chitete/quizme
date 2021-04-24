@@ -26,7 +26,7 @@ const App = () => {
   const [gameOver, setGameOver] = useState(true);
 
   // TODO: Implement error-handling?
-  const startDevPrep = async () => {
+  const startQuizMe = async () => {
     setLoaded(false);
     setLoading(true);
     setGameOver(false);
@@ -80,14 +80,15 @@ const App = () => {
       <Wrapper>
         <h1>quiz<span>_</span>me</h1> 
         {!loading && !loaded && (
-          <p>
-            Test your knowledge on a variety of fun and interesting topics such as Film and TV, 
-            Music, Pop Culture, History and Art!
-          </p>)}
-        {gameOver && !loading && userAnswers.length !== TOTAL_QUESTIONS && (
-          <button className="start" onClick={startDevPrep}>
-            start
-          </button>
+          <>
+            <p>
+              Test your knowledge about topics such as Geography, Entertainment, History, Arts &amp; 
+              Literature, Science &amp; Nature and Sports &amp; leisure.
+            </p>
+            <button className="start" onClick={startQuizMe}>
+              start
+            </button>
+          </>
         )}
         {gameOver && !loading && userAnswers.length === TOTAL_QUESTIONS && (
           <>
@@ -122,9 +123,7 @@ const App = () => {
               <p>
                 You scored {score} out of {TOTAL_QUESTIONS}. Be honest, you cheated...didn't you?
               </p>)}
-            <button className="start" onClick={startDevPrep}>
-              play again
-            </button>
+            <button className="start" onClick={startQuizMe}>play again</button>
           </>
         )}
         {!gameOver && !loading && <p className="score">{score}</p>}
