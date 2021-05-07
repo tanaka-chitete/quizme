@@ -83,7 +83,7 @@ const App = () => {
           <>
             <p>
               Test your knowledge about topics such as Geography, Entertainment, History, Arts &amp; 
-              Literature, Science &amp; Nature and Sports &amp; leisure.
+              Literature, Science &amp; Nature and Sports &amp; Leisure.
             </p>
             <button className="start" onClick={startQuizMe}>
               start
