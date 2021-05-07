@@ -1,13 +1,16 @@
-# quiz_me
+# Quiz Me
 
 ## About
-quiz_me is a trivia quiz web app developed with React and TypeScript. Users can test their knowledge on a variety of fun and interesting topics such as Film and TV, Music, Pop Culture, History and Art.
+Quiz Me is a trivia web app developed using React, TypeScript and the 
+[Open Trivia DB API](https://opentdb.com/api_config.php). Users can test their
+knowledge about topics such as Geography, Entertainment, History, Arts & 
+Literature, Science & Nature and Sports & Leisure.
 
 ## Link
 
-[quiz_me](https://triviabyquizme.herokuapp.com/)
+[Play Now](https://triviabyquizme.herokuapp.com/)
 
 ## Author
 
 Tanaka Chitete
-* [Linkedin](https://www.linkedin.com/in/tanaka-chitete/)
+* [LinkedIn](https://www.linkedin.com/in/tanaka-chitete/)
